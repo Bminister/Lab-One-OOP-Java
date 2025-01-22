@@ -1,7 +1,7 @@
 import java.util.Map;
 import java.util.HashMap;
 /*
-Denomination[] US_CURRENCIES = {
+private static final Denomination[] US_CURRENCIES = {
                 new Denomination("Hundred-Dollar Note",100.0,"Bill","images/hundred.png"),//Change with the actual .png name
                 new Denomination("Fifty-Dollar Note", 50.0,"Bill","images/fifty-dollar.png"),
                 new Denomination("Twenty-Dollar Note", 20.0,"Bill","images/twenty-dollar.png"),
@@ -51,8 +51,11 @@ public class Purse {
     public String toString()
     {
         String output = "";
-        for (Map.Entry<Denomination, Integer> entry : cash.entrySet())
-            output += cash.get(entry.getValue()) + " " + cash.get(entry.getKey().name()) + "\n";
+        for (Denomination d : cash.keySet()) {
+            if (cash.get(d) > 0)
+                output += cash.get(d) + " " + d.name() + "\n ";
+        }
+
         return output;
     }
 }
