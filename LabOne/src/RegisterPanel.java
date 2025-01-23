@@ -9,22 +9,36 @@ public class RegisterPanel extends JPanel {
     private JPanel inputPanel; //a panel to hold the JTextField for the user to enter an amount
     private JTextField input; // a place for the user to enter the amount
     private PursePanel changePanel; // a panel to display the change
-RegisterPanel() {
+public RegisterPanel() {
+    //Sets up new register panel to display the input of the money
+    //Initialization for all panels needed
     register = new Register();
-    this.setPreferredSize(new Dimension(100, 100));
-
+    input = new JTextField(10);
+    changePanel = new PursePanel();
     JPanel inputPanel = new JPanel();
-    input = new JTextField();
+
+    input.addActionListener(new InputListener());
+    setLayout(new BorderLayout());
+
     inputPanel.add(new JLabel("Enter Amount: "));
     inputPanel.add(input);
-
-
+    add(inputPanel, BorderLayout.NORTH);
+    add(changePanel, BorderLayout.CENTER);
 }
 
+private class InputListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        try {
+            double amount = Double.parseDouble(input.getText());
+            Purse change = register.makeChange(amount);
+            changePanel.setPurse(change);
+            changePanel.repaint();
 
-
-
-    //InputListener (class, implements ActionListener)   // a listener for changes to the input
-    //actionPerformed(ActionEvent e): void   // what happens when input changes
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(RegisterPanel.this, "Invalid Amount!");
+        }
+    }
+}
 
 }

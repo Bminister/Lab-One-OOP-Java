@@ -11,8 +11,8 @@ public class MakingChange {
         JFrame frame = new JFrame("Making Change");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 500);
+        RegisterPanel panel = new RegisterPanel();
+        frame.add(panel);
         frame.setVisible(true);
-        frame.add(new RegisterPanel());
-
     }
 }
